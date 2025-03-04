@@ -1,0 +1,28 @@
+.nav-bar-list {
+  .nav-bar-item {
+   
+    a {
+      font-size: 16px;
+      font-family: "Jost", sans-serif;
+      color: #141517;
+      font-weight: 600;
+    }
+    .nav-bar-cart::after{
+      -webkit-transition: all .4sease-out 0s;
+      -moz-transition: all .4s ease-out 0s;
+      -ms-transition: all .4s ease-out 0s;
+      -o-transition: all .4s ease-out 0s;
+      transition: all .4sease-out 0s;
+      position: absolute;
+      content: "1";
+      background: #FF2020;
+      color: #fff;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 12px;
+      top: -7px;
+      right: 0px;
+      padding: 1px 7px;
+  }
+  }
+}

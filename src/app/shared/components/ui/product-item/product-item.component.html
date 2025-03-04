@@ -1,0 +1,42 @@
+<div class="product relative border border-1 border-red-500 rounded-md overflow-hidden mb-6 ">
+    <div 
+    
+    class="heart-icon right-0 p-4 pb-0  absolute text-xl cursor-pointer transition-colors duration-300">
+    @if(Wishlist.includes(product._id) ){
+        <p class="text-red-600"><i 
+            (click)="handleRemoveFromWishlist(product._id) "
+            class="fa-solid fa-heart"></i></p> 
+    }@else{ 
+        <i 
+        (click)="handleAddToWishlist(product._id) "
+        class="fa-regular fa-heart"></i>
+
+    }
+
+  </div>
+
+   <a [routerLink]="['/product-details',product._id]">
+    <img [src]="product.imageCover" class="w-full" alt="">
+    <div class="item-content p-5 md:p-3 lg:p-5 pt-3 ">
+        <span class="text-red-700 pb-2"> {{product.category.name}} </span>
+        <h2 class="font-semibold  text-lg md:text-sm lg:text-lg"> {{product.title.split(" ").splice(0,2).join(" ")}} </h2>
+        <div class="flex justify-between items-center pt-3 pb-2">
+            <p>{{product.price}} EGP </p>
+            <p><span class="text-yellow-500"><i class="fa fa-star"></i></span>{{product.ratingsAverage}}</p>
+
+        </div>
+    </div>
+  </a>
+
+    <div class="cart-button text-center pt-1 pb-3">
+        <button 
+        (click)="handleAddToCart(product._id)"
+         data-ripple-light="true" type="button"
+        class="select-none rounded-lg bg-red-500 py-3 px-3 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20  transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85]  focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+        add to cart 
+        <span class="p-1"><i class="fa-solid fa-cart-shopping"></i></span>
+       </button>
+    </div>
+   
+
+</div>

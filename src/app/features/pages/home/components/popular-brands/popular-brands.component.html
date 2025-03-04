@@ -1,0 +1,25 @@
+<div class="carousel-title mb-1">
+  <p class="font-bold text-xl text-red-600 "> Popular Brands</p>
+</div>
+
+@if(isLoading){
+  <div class="flex justify-center items-center mt-10">
+    <span class=" text-xl text-red-600"><i class="fa fa-spin fa-spinner"></i></span>
+  </div>
+} @else {
+  <div class="carousel mt-8 mb-[2rem]">
+  
+        <owl-carousel-o [options]="CustomOptions" >  
+          @for (brand of Brands; track $index) {
+              <ng-template carouselSlide [id]="brand.name" >
+                  <img class="h-[100px] rounded-md " [src]="brand.image" [alt]="brand.name" [title]="brand.name">
+                </ng-template>
+          }
+        </owl-carousel-o>
+      
+
+</div>
+
+}
+
+

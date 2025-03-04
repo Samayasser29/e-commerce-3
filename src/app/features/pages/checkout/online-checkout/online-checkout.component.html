@@ -1,0 +1,33 @@
+<div class="h-[100vh] mt-[10rem]">
+    <form class="w-[50%] mx-auto" [formGroup]="checkoutForm" (ngSubmit)="completeOrderOnline()">
+        <h2 class=" text-red-600 font-semibold text-2xl mb-8">Continue shopping ...</h2>
+
+        <div class="relative z-0 w-full mb-5 group">
+            @let detailsControl = checkoutForm.get("details") ;
+            <input type="text" formControlName="details" name="floating_details" id="floating_details" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_details" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"> your Address</label>
+            <app-error-message [nameControl]="detailsControl"></app-error-message>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let cityControl = checkoutForm.get("city") ;
+            <input type="text" formControlName="city" name="floating_city" id="floating_city" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_city" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"> your City</label>
+            <app-error-message [nameControl]="cityControl"></app-error-message>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let phoneControl = checkoutForm.get("phone") ;
+            <input type="tel" formControlName="phone" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"> your Phone</label>
+            <app-error-message [nameControl]="phoneControl"></app-error-message>
+        </div>
+
+    <button type="submit" class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-5 text-center ">
+        @if(isCallingApi){
+           <i class="fa fa-spin fa-spinner"></i>
+       }@else {
+           Continue
+       } 
+       
+      </button>
+    </form>
+</div>

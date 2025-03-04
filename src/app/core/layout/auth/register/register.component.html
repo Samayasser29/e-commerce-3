@@ -1,0 +1,106 @@
+
+<div class="register-form mt-[5rem] my-[5rem]">
+    
+   
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class=" max-w-md mx-auto">
+        <h2 class=" text-red-600 font-semibold text-2xl mb-5">Register Now ...</h2>
+        @if(apiError){
+            <div class=" flex text-center mx-auto  p-3 mb-8 text-sm text-red-600 rounded-lg bg-red-100 mt-1 " role="alert">   
+                {{apiError}}
+            </div>          
+        
+        
+        }
+        <div class="relative z-0 w-full mb-5 group">
+            @let nameControl = registerForm.get("name") ;
+            <input type="text" formControlName="name" name="floating_name" id="floating_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_name" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your name</label>
+
+           <app-error-message [nameControl]="nameControl"></app-error-message>
+            
+        </div>
+
+
+        <div class="relative z-0 w-full mb-5 group">
+            @let emailControl = registerForm.get("email");
+            <input type="email" formControlName="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your email</label>
+
+            <app-error-message [nameControl]="emailControl"></app-error-message>
+
+
+          
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            @let passwordControl = registerForm.get("password") ;
+            <input [type]="!toggleInput? 'password' : 'text' " formControlName="password" name="floating_password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your password</label>
+            <span (click)="ontoggle()" class="absolute top-[20%] right-0 cursor-pointer mb-2 me-2 text-sm">
+                @if(!toggleInput){
+                    <i class="fa fa-eye"></i>
+                }@else {
+                    <i class="fa fa-eye-slash"></i>
+                }
+               
+    
+            </span>
+            <app-error-message [nameControl]="passwordControl"></app-error-message>
+            
+          
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let rePasswordControl = registerForm.get("rePassword") ;
+            <input [type]="!toggleInput? 'password' :'text'" formControlName="rePassword" name="floating_repassword" id="floating_repassword" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_repassword" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your repassword</label>
+            <span (click)="ontoggle()" class="absolute top-[20%] right-0 cursor-pointer mb-2 me-2 text-sm">
+                @if(!toggleInput){
+                    <i class="fa fa-eye"></i>
+                }@else {
+                    <i class="fa fa-eye-slash"></i>
+                }
+               
+    
+            </span>
+
+            
+
+            @if(rePasswordControl?.errors && rePasswordControl?.touched  || registerForm.getError("misMatch")){
+                <div class="flex  mb-4 text-sm text-red-600 rounded-lg bg-red-100 mt-1 p-[4px]" role="alert">               
+                    <span class="sr-only">Danger</span>
+                    <div>
+                          <ul class="p-1 ps-3 list-disc list-inside">
+                            @if(rePasswordControl?.getError("required")){
+                                <li>rePassword is required</li>
+                            }@else if (rePasswordControl?.getError("pattern")) {
+                                <li>Invalid password</li>
+                            }@else if (registerForm.getError("misMatch")) {
+                                <li>password and repassword not match</li>
+                            }
+                         
+                      </ul>
+                    </div>
+                  </div>
+             }
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            @let phoneControl = registerForm.get("phone");
+            <input type="tel" formControlName="phone" name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-600 appearance-none  focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500  duration-600 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-red-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your phone number</label>
+            <app-error-message [nameControl]="phoneControl"></app-error-message>
+
+          
+        </div>
+      
+        <button type="submit" class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-5 text-center ">
+            @if(isCallingApi){
+                <i class="fa fa-spin fa-spinner"></i>
+            }@else {
+                Submit
+            }
+            
+           </button>
+      </form>
+</div>
+
+  

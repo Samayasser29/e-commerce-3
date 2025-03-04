@@ -1,0 +1,125 @@
+@if(isLoading){
+    <div class="flex justify-center items-center h-[100vh]">
+        <h1 class="text-5xl text-red-600"> <span><i class="fa fa-spin fa-spinner"></i></span></h1>
+
+    </div>
+}@else {
+    @if(cartDetails?.numOfCartItems !=0 && !emptyCart){
+        <section class="cart mt-[3rem]">
+            <div class="cart-header flex justify-between items-center px-10">
+                <h2 class="text-xl">Total cart items : <span class="text-red-600">{{cartDetails.numOfCartItems}}</span> </h2>
+                <div class="">
+                    <p class="text-xl">Total cart price : <span class="text-red-600">{{cartDetails.data.totalCartPrice}} $</span> </p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-10 mb-5 ">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500  ">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                    <tr>
+                        <th scope="col" class="px-16 py-3">
+                            <span class="sr-only">Image</span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Product
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Qty
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Price
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    @for (product of cartDetails?.data?.products; track $index) {
+                        <tr class="bg-white border-b  border-gray-200 hover:bg-gray-50">
+                            <td class="p-4">
+                                <img [src]="product.product.imageCover" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 ">
+                                {{product.product.title}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="flex items-center">
+                                    <button (click)="updateCount(product.product._id, product.count - 1)" class="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200   " type="button">
+                                        <span class="sr-only">Quantity button</span>
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                                        </svg>
+                                    </button>
+                                    <div>
+                                        <span>{{product.count}}</span> 
+        
+                                   </div>
+                                    <button (click)="updateCount(product.product._id, product.count + 1)" class="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200  " type="button">
+                                        <span class="sr-only">Quantity button</span>
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 ">
+                               ${{product.price}}
+                            </td>
+                            <td class="px-6 py-4">
+                                <button (click)="removeItem(product.product._id)" class="font-medium text-red-600  hover:underline">Remove</button>
+                            </td>
+                        </tr>
+                    }
+                    
+                  
+                    
+                </tbody>
+            </table>
+        </div>
+        
+       
+        <div class="payment-method flex flex-col border-2 border-red-600 rounded-md p-5">
+            <p class="font-semibold">Choose your payment method to complete your order </p>
+            <div class="cart-button  pb-0">
+                <a
+                
+                 data-ripple-light="true" type="button"
+                 [routerLink]="['/online-checkout' , cartDetails.cartId]"
+                 class="select-none inline-block rounded-lg bg-red-500 ms-10 mt-5 py-3 ps-6 pe-6 px-4 me-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20  transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85]  focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                 Online payment
+               </a>
+            </div>
+            <div class="cart-button  pb-0">
+                <a
+                
+                 data-ripple-light="true" type="button"
+                 [routerLink]="['/checkout' , cartDetails.cartId]"
+                 class="select-none inline-block rounded-lg bg-red-500 ms-10 mt-2 py-3 ps-6 pe-6 px-4 me-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20  transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85]  focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                 Cash on delivery
+               </a>
+            </div>
+        </div>
+       
+
+            <div class="cart-button flex justify-end  pt-5 pb-3">
+                <button
+                (click)="clearCart()"
+                 data-ripple-light="true" type="button"
+                 class="select-none  rounded-lg bg-red-500 mt-3 py-3 px-3 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20  transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85]  focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                 Clear Cart
+                <span class="p-1"><i class="fa-solid fa-basket-shopping"></i></span>
+               </button>
+            </div>
+
+    }@else {
+        <div class="h-[100vh] flex justify-center items-center">
+            <h1 routerLink="/home">Cart is Empty go to shopping  <span class="cursor-pointer underline text-red-600">Home</span></h1>
+    
+        </div>
+    }
+    
+    
+}

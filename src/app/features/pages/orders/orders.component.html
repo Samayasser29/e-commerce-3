@@ -1,0 +1,129 @@
+
+
+<div class="relative overflow-x-auto w-[75%] mx-auto mt-[3rem] min-h-[100vh]">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-red-50 ">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Cart Id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Is Paid 
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Payment Method
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Total Order Price
+                </th>
+                <th scope="col" class="px-6 py-3">
+                   View 
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (order of allOrders; track order._id ;let i = $index) {
+                <tr class="bg-white border-b  border-gray-200" >
+                    <th scope="row" class="px-6 py-4 font-medium text-red-700 whitespace-nowrap ">
+                        {{order._id}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{order.isPaid}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{order.paymentMethodType}}
+                    </td>
+                    <td class="px-6 py-4">
+                       $ {{order.totalOrderPrice}}
+                    </td>
+                    <td class="px-6 py-4  text-red-700">
+                        <i (click)="openModal(i)" class="fa fa-eye"></i>
+                     </td>
+                </tr>
+            }
+          
+           
+        </tbody>
+    </table>
+</div>
+
+
+
+@if(showModel){
+    <div class="modal fixed inset-0 z-20 bg-slate-300 p-5 flex items-center justify-center overflow-auto  ">
+   <div class="items  bg-white w-[50%]  max-h-screen overflow-auto mx-auto p-5 pt-10 mt-[8rem] rounded-md shadow-lg ">
+    <div class="cancel text-red-600 flex justify-end p-3">
+        <i (click)="closeModal()" class="fa-solid fa-xmark"></i>    
+     </div>
+    <div class="  relative overflow-x-auto shadow-md sm:rounded-lg   ">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500  ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                <tr>
+                    <th scope="col" class="px-10 py-3">
+                        <span class="sr-only">Image</span>
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Product
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Qty
+                    </th>
+                    <th scope="col" class="px-3 py-3">
+                        Price
+                    </th>
+                   
+                </tr>
+            </thead>
+    
+            <tbody>
+                @for (cartItem of cartItems; track $index) {
+                    <tr class="bg-white border-b  border-gray-200 hover:bg-gray-50">
+                        <td class="p-4">
+                            <img [src]="cartItem.product.imageCover" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                        </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 ">
+                            {{cartItem.product.title}}
+                        </td>
+                        <td class="px-6 py-4 ont-semibold text-gray-900">    
+                         {{cartItem.count}}
+                        </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 ">
+                           ${{cartItem.price}}
+                        </td>
+                       
+                    </tr>
+                }
+                
+              
+                
+            </tbody>
+        </table>
+    </div>
+
+   </div>
+       
+    </div>
+    
+}
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+<div class="carousel-title mb-3">
+  <p class="font-bold text-xl text-red-600"> Popular Categories</p>
+</div>
+@if(isLoading){
+  <div class="flex justify-center items-center mt-10">
+    <span class=" text-xl text-red-600"><i class="fa fa-spin fa-spinner"></i></span>
+  </div>
+}@else {
+  <div class="carousel mb-[4rem]">
+    
+    <owl-carousel-o [options]="CustomOptions" >  
+      @for (category of categories; track $index) {
+          <ng-template carouselSlide [id]="category._id " >
+              <img class="h-[200px] rounded-md " [src]="category.image" [alt]="category.name" [title]="category.name">
+             <p class="pt-3 text-center font-semibold text-gray-600 hover:text-red-600">{{category.name}}</p>
+            </ng-template>
+      }
+    </owl-carousel-o>
+  
+
+</div>
+}
+
+
